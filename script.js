@@ -205,6 +205,7 @@ document.addEventListener("keydown", keyStrokes);
 
 const updateStats = () => {
   if (typedChars === 0) return;
+  if(timeLeft === 60) return;
   const wpm = Math.round((correctChars / 5 / (60 - timeLeft)) * 60);
   const accuracy = Math.round((correctChars / typedChars) * 100);
 

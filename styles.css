@@ -253,12 +253,14 @@ span.mobile,
 .test-completed-details p {
   font-size: 1rem;
   color: #ccc;
-  margin-bottom: 0.25rem;
-  margin-bottom: 3rem;
+  text-align: center;
+  margin-bottom: 2rem;
+
 }
 
 .baseline-details, .test-completed-details {
     margin-top: 5rem;
+    padding: 1rem;
 }
 
 .completed-test {
@@ -318,7 +320,7 @@ button.btn#go-again,
 button.btn#beat-high-score,
 button.btn#try-again {
   display: flex;
-  margin-top: 2rem;
+  margin-block: 2rem;
   background-color: #fff;
   border: none;
   color: #1e1e1e;
@@ -329,6 +331,7 @@ button.btn#try-again {
   transition:
     background-color 0.3s,
     color 0.3s;
+  
 }
 
 button.btn#go-again svg.reload,
@@ -391,7 +394,7 @@ button.btn#try-again svg.reload {
   span.mobile,
   .mode-mobile,
   .difficulty-mobile {
-    display: block;
+    display: flex;
     justify-content: space-between;
     width: 100%;
   }
@@ -439,7 +442,14 @@ button.btn#try-again svg.reload {
   .mode-switch button,
   .difficulty-switch button {
     width: 100%;
+    display: flex;
+    justify-content: center;
   }
+
+  .baseline-established, .test-complete, .test-high-score {
+    padding-top: 6rem;
+  }
+
   .complete-scores .completed-wpm,
   .complete-scores .completed-accuracy,
   .complete-scores .completed-characters {

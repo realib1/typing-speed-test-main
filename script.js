@@ -58,11 +58,12 @@ let timer;
 let timeLeft = 60;
 let isTestRunning = false;
 let typedChars = 0;
+let startTime;
 let correctChars = 0;
 let incorrectChars = 0;
 let currentQuote = null;
 let currentDifficulty = localStorage.getItem("difficulty") || "easy";
-let currentMode = localStorage.getItem("mode") || "timer";
+let currentMode = localStorage.getItem("mode") || "time-sec";
 
 let quotes = {};
 
@@ -111,10 +112,11 @@ loadData();
 
 //   Start test
 const startTest = () => {
+  startTime = Date.now();
   if (isTestRunning) return;
   isTestRunning = true;
   overlay.style.display = "none";
-  if (currentMode === "timer") {
+  if (currentMode === "time-sec") {
     startTimer();
   }
 };
@@ -169,6 +171,7 @@ const startTimer = () => {
 
 // Get typed characters
 const keyStrokes = async (event) => {
+  if(event.target.tagName === "INPUT" || event.target.tagName === "BUTTON") return;
   if (!isTestRunning) return;
   const key = event.key;
   if (key.length !== 1) return;
@@ -199,10 +202,17 @@ document.addEventListener("keydown", keyStrokes);
 
 const updateStats = () => {
   if (typedChars === 0) return;
-  if (timeLeft === 60) return;
-  const wpm = Math.round((correctChars / 5 / (60 - timeLeft)) * 60);
+  if (currentMode === "time-sec" && timeLeft === 60) return;
+  let elapsed = (Date.now() - startTime) / 1000;
+  let wpm;
   const accuracy = Math.round((correctChars / typedChars) * 100);
+  if (currentMode === "time-sec") {
+    wpm = Math.round((correctChars / 5 / (60 - timeLeft)) * 60);
+  }
 
+  if (currentMode === "passage") {
+    wpm = Math.round((correctChars / 5 / elapsed) * 60);
+  }
   accuracyDisplay.style.color = accuracy < 100 ? "red" : "#d4d4d4";
 
   wpmDisplay.textContent = `${wpm}`;

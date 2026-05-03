@@ -46,8 +46,6 @@ const difficultySwitchBtn = document.getElementById("btn-difficulty-switch");
 const modeSwitchBtn = document.getElementById("btn-mode-switch");
 const difficultySwitch = document.querySelector(".difficulty-switch");
 const modeSwitch = document.querySelector(".mode-switch");
-// const openMode = document.querySelector(".open-mode");
-// const openDifficulty = document.querySelector(".open-difficulty")
 
 const radioDifficulty = document.querySelectorAll('input[name="difficulty"]');
 const radioMode = document.querySelectorAll('input[name="mode"]');
@@ -63,8 +61,8 @@ let typedChars = 0;
 let correctChars = 0;
 let incorrectChars = 0;
 let currentQuote = null;
-let currentDifficulty = localStorage.getItem('difficulty') || "easy";
-let currentMode = localStorage.getItem('mode') || "timer";
+let currentDifficulty = localStorage.getItem("difficulty") || "easy";
+let currentMode = localStorage.getItem("mode") || "timer";
 
 let quotes = {};
 
@@ -149,10 +147,6 @@ const goTryAgainTest = async () => {
   restartTest();
 };
 
-const stopTest = () => {
-  isTestRunning = false;
-};
-
 // Timer countdown
 const startTimer = () => {
   typedChars = 0;
@@ -205,11 +199,11 @@ document.addEventListener("keydown", keyStrokes);
 
 const updateStats = () => {
   if (typedChars === 0) return;
-  if(timeLeft === 60) return;
+  if (timeLeft === 60) return;
   const wpm = Math.round((correctChars / 5 / (60 - timeLeft)) * 60);
   const accuracy = Math.round((correctChars / typedChars) * 100);
 
-  accuracyDisplay.style.color = accuracy < 100 ? "red" : "#ccc";
+  accuracyDisplay.style.color = accuracy < 100 ? "red" : "#d4d4d4";
 
   wpmDisplay.textContent = `${wpm}`;
   accuracyDisplay.textContent = `${accuracy}%`;
@@ -233,7 +227,7 @@ const calculateResult = () => {
     baselineCorrectCharCount.style.color = "#03e499";
     baselineWPM.textContent = `${wpm}`;
     baselineAccuracy.textContent = `${accuracy}%`;
-    baselineAccuracy.style.color = accuracy < 100 ? "red" : "#ccc";
+    baselineAccuracy.style.color = accuracy < 100 ? "red" : "#d4d4d4";
     baselineCorrectCharCount.textContent = `${correctChars}`;
     baselineIncorrectCharCount.textContent = `${incorrectChars}`;
     baselineIncorrectCharCount.style.color = "red";
@@ -242,7 +236,7 @@ const calculateResult = () => {
     testCorrectCharCount.style.color = "#03e499";
     testCompleteWPM.textContent = `${wpm}`;
     testCompleteAccuracy.textContent = `${accuracy}%`;
-    testCompleteAccuracy.style.color = accuracy < 100 ? "red" : "#ccc";
+    testCompleteAccuracy.style.color = accuracy < 100 ? "red" : "#d4d4d4";
     testCorrectCharCount.textContent = `${correctChars}`;
     testIncorrectCharCount.textContent = `${incorrectChars}`;
     testIncorrectCharCount.style.color = "red";
@@ -251,7 +245,7 @@ const calculateResult = () => {
     highScoreCorrectCharCount.style.color = "#03e499";
     highScoreWPM.textContent = `${wpm}`;
     highScoreAccuracy.textContent = `${accuracy}%`;
-    highScoreAccuracy.style.color = accuracy < 100 ? "red" : "#ccc";
+    highScoreAccuracy.style.color = accuracy < 100 ? "red" : "#d4d4d4";
     highScoreCorrectCharCount.textContent = `${correctChars}`;
     highScoreIncorrectCharCount.textContent = `${incorrectChars}`;
     highScoreIncorrectCharCount.style.color = "red";
@@ -265,7 +259,6 @@ difficultyBtns.forEach((btn) => {
     if (isTestRunning) return;
     currentDifficulty = btn.dataset.difficulty;
     localStorage.setItem("difficulty", currentDifficulty);
-    console.log(localStorage.getItem("difficulty"));
     difficultyBtns.forEach((b) => b.classList.remove("active"));
     btn.classList.add("active");
     loadData();
@@ -311,7 +304,6 @@ radioDifficulty.forEach((radio) =>
     ).dataset.difficulty;
     currentDifficulty = selectedDifficulty;
     localStorage.setItem("difficulty", currentDifficulty);
-    console.log(localStorage.getItem("difficulty"));
     difficultySwitchBtn.textContent = radio.value;
     difficultySwitch.classList.toggle("difficulty-switch");
     loadData();
@@ -324,7 +316,6 @@ radioMode.forEach((radio) =>
       .dataset.mode;
     currentMode = selectedMode;
     localStorage.setItem("mode", currentMode);
-    console.log(localStorage.getItem("mode"));
     modeSwitchBtn.textContent = radio.value;
     modeSwitch.classList.toggle("mode-switch");
     loadData();
